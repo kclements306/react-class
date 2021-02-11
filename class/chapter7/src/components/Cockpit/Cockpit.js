@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import classes from './Cockpit.module.css';
 
-const cockpit = (props) => {
+const Cockpit = (props) => {
+
+    const toggleBtnRef = useRef(null);
+
+    useEffect(() => {
+        console.log('[Cockpit.js] useEffect');
+        toggleBtnRef.current.click();
+        return () => {
+            console.logh('[Cockpit.js] cleanup work in useEffect');
+        };
+    }, []);
 
     const assignedClasses = [];
     let btnClass = '';
@@ -23,6 +33,7 @@ const cockpit = (props) => {
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>This is really working</p>
             <button 
+                ref={toggleBtnRef}
                 className={btnClass} 
                 onClick={props.clicked}>Toggle People
             </button>
@@ -30,4 +41,4 @@ const cockpit = (props) => {
     );
 };
 
-export default cockpit;
+export default Cockpit;
